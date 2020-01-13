@@ -18,10 +18,10 @@ from xml.dom import minidom
 import polib
 
 def version():
-    print os.path.basename(__file__) + " version " + __version__ + "\n"
+    print(os.path.basename(__file__) + " version " + __version__ + "\n")
 
 def help():
-    print textwrap.dedent("""
+    print(textwrap.dedent("""
       Usage: %s [OPTION]... WXL_SOURCE_FILE WXL_TRANSLATED_FILE PO_DEST_FILE
       Transform the file WXL_SOURCE_FILE in wxl format into a po file PO_DEST_FILE
       containing the translations from WXL_TRANSLATED_FILE
@@ -32,13 +32,13 @@ def help():
         -V, --version          print version information and exit
         -f, --force            don't ask before overwriting destination file
         -l, --langid=LANGID    ignore string with Id LANGID containing the LCID
-""" % (os.path.basename(__file__), os.path.basename(__file__)))
+""" % (os.path.basename(__file__), os.path.basename(__file__))))
 
 def usage():
-    print textwrap.dedent("""\
+    print(textwrap.dedent("""\
       Usage: %s [OPTION]... WXL_SOURCE_FILE WXL_TRANSLATED_FILE PO_DEST_FILE
       Try '%s --help' for more information.
-    """ % (os.path.basename(__file__), os.path.basename(__file__)))
+    """ % (os.path.basename(__file__), os.path.basename(__file__))))
 
 
 # Main
@@ -49,7 +49,7 @@ try:
     opts, args = getopt.getopt(sys.argv[1:], "hVfl:", ["help", "version", "force", "langid="])
 except getopt.GetoptError as err:
     # print help information and exit:
-    print str(err) # will print something like "option -a not recognized"
+    print(str(err)) # will print something like "option -a not recognized"
     usage()
     sys.exit(2)
 output = None
@@ -69,7 +69,7 @@ for o, a in opts:
         assert False, "unhandled option"
 
 if len(args) < 3:
-    print "Missing filename parameters"
+    print("Missing filename parameters")
     usage()
     sys.exit(1)
 
@@ -78,18 +78,18 @@ transfile = args[1]
 destfile = args[2]
 
 if not os.path.exists(sourcefile):
-    print "Source file " + sourcefile + " does not exist. Please provide a valid wxl file."
+    print("Source file " + sourcefile + " does not exist. Please provide a valid wxl file.")
     sys.exit(1)
 
 if not os.path.exists(transfile):
-    print "Translated file " + transfile + " does not exist. Please provide a valid wxl file."
+    print("Translated file " + transfile + " does not exist. Please provide a valid wxl file.")
     sys.exit(1)
 
 if os.path.exists(destfile) and not force:
     sys.stdout.write("Destination file " + destfile + " already exists. Overwrite ? [y/N] ")
-    choice = raw_input().lower()
+    choice = input().lower()
     if choice not in ['yes','y', 'ye']:
-        print "Aborting"
+        print("Aborting")
         sys.exit(1)
 
 transdoc = minidom.parse(transfile)

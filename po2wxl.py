@@ -112,7 +112,18 @@ if po.percent_translated() <= translationPercentLimit:
 metadata = po.ordered_metadata()
 language = [value for name, value in metadata if name == "Language"]
 
-culture = language[0].lower().replace('_','-')
+default_culture_map = {
+    'de': 'de_DE',
+    'fi': 'fi_FI',
+    'ja': 'ja_JP',
+    'nl': 'nl_NL',
+    'ru': 'ru_RU'
+}
+
+culture = default_culture_map.get(language[0], None)
+if culture is None:
+    culture = language[0]
+culture = culture.lower().replace('_','-')
 cultureShort = culture[:culture.index('-')]
 
 if codepage == "":

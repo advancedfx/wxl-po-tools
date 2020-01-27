@@ -115,6 +115,7 @@ language = [value for name, value in metadata if name == "Language"]
 default_culture_map = {
     'de': 'de_DE',
     'fi': 'fi_FI',
+    'hu': 'hu_HU',
     'ja': 'ja_JP',
     'nl': 'nl_NL',
     'ru': 'ru_RU'

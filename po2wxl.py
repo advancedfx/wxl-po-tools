@@ -118,7 +118,8 @@ default_culture_map = {
     'hu': 'hu_HU',
     'ja': 'ja_JP',
     'nl': 'nl_NL',
-    'ru': 'ru_RU'
+    'ru': 'ru_RU',
+    'tr': 'tr_TR'
 }
 
 culture = default_culture_map.get(language[0], None)

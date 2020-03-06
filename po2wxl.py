@@ -118,6 +118,7 @@ default_culture_map = {
     'hu': 'hu_HU',
     'ja': 'ja_JP',
     'nl': 'nl_NL',
+    'pl': 'pl_PL',
     'ru': 'ru_RU',
     'tr': 'tr_TR'
 }

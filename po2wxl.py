@@ -177,15 +177,16 @@ if langid:
     f.write("\n")
 
 for entry in po:
-    if entry.comment != "":
-        f.write("\n")
-        f.write("  <!--" + entry.comment.replace('\n', ' -->\n  <!--') + " -->\n")
-    if entry.msgstr != "":
-        translation = escape(entry.msgstr)
-    else:
-        translation = escape(entry.msgid)
-    translation = "&#13;&#10;".join(translation.split("\n")).replace('\r', '').encode("utf-8")
-    f.write("  <String Id=\"" + bytes.decode(entry.msgctxt.encode("utf-8")) + "\">" + bytes.decode(translation) + "</String>\n")
+	if not entry.obsolete:
+		if entry.comment != "":
+			f.write("\n")
+			f.write("  <!--" + entry.comment.replace('\n', ' -->\n  <!--') + " -->\n")
+		if entry.msgstr != "":
+			translation = escape(entry.msgstr)
+		else:
+			translation = escape(entry.msgid)
+		translation = "&#13;&#10;".join(translation.split("\n")).replace('\r', '').encode("utf-8")
+		f.write("  <String Id=\"" + bytes.decode(entry.msgctxt.encode("utf-8")) + "\">" + bytes.decode(translation) + "</String>\n")
 
 f.write("</WixLocalization>\n")
 f.close

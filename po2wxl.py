@@ -13,7 +13,7 @@ import getopt
 import sys
 import textwrap
 import os.path
-from xml.sax.saxutils import escape
+from xml.sax.saxutils import quoteattr
 
 import polib
 
@@ -159,13 +159,11 @@ else:
 
 
 f = open(destfile, encoding='utf-8', mode='w')
-f.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n")
-f.write("<WixLocalization Culture=\"" + culture + "\" Codepage=\"" + str(codepage) + "\"\n")
-f.write("                 xmlns=\"http://schemas.microsoft.com/wix/2006/localization\">\n")
+f.write("<WixLocalization Culture=\"" + culture + "\" Codepage=\"" + str(codepage) + "\" xmlns=\"http://wixtoolset.org/schemas/v4/wxl\">\n")
 f.write("\n")
 f.write("  <!-- ..................................................... -->\n")
 f.write("  <!-- This wxl file has been auto generated from a po file  -->\n")
-f.write("  <!-- using https://github.com/sblaisot/wxl-po-tools        -->\n")
+f.write("  <!-- using https://github.com/advancedfx/wxl-po-tools      -->\n")
 f.write("  <!-- Source File: " + sourcefile.ljust(40) + " -->\n")
 f.write("  <!-- ..................................................... -->\n")
 f.write("\n")
@@ -173,7 +171,7 @@ f.write("\n")
 if langid:
     f.write("  <!-- This contains the LangID and should be translated to reflect the correct LangID. -->\n")
     f.write("  <!-- Supported language and codepage codes can be found here: https://msdn.microsoft.com/en-us/goglobal/bb964664.aspx -->\n")
-    f.write("  <String Id=\"" + bytes.decode(langid) + "\">" + str(langIdAuto) + "</String>\n")
+    f.write("  <String Id=\"" + bytes.decode(langid) + "\" Value=\"" + str(langIdAuto) + "\" />\n")
     f.write("\n")
 
 for entry in po:
@@ -182,11 +180,11 @@ for entry in po:
 			f.write("\n")
 			f.write("  <!--" + entry.comment.replace('\n', ' -->\n  <!--') + " -->\n")
 		if entry.msgstr != "":
-			translation = escape(entry.msgstr)
+			translation = quoteattr(entry.msgstr)
 		else:
-			translation = escape(entry.msgid)
+			translation = quoteattr(entry.msgid)
 		translation = "&#13;&#10;".join(translation.split("\n")).replace('\r', '').encode("utf-8")
-		f.write("  <String Id=\"" + bytes.decode(entry.msgctxt.encode("utf-8")) + "\">" + bytes.decode(translation) + "</String>\n")
+		f.write("  <String Id=\"" + bytes.decode(entry.msgctxt.encode("utf-8")) + "\" Value=" + bytes.decode(translation) + " />\n")
 
 f.write("</WixLocalization>\n")
 f.close

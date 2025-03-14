@@ -117,7 +117,7 @@ for node in nodes:
                 comment = ""
                 continue
 
-            stringContent = node.firstChild.data
+            stringContent = node.getAttribute("Value")
             entry = polib.POEntry(
                 comment = comment,
                 msgctxt = stringId,

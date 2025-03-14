@@ -111,7 +111,7 @@ for node in transnodes:
             if stringId == langid:
                 comment = ""
                 continue
-            stringContent = node.firstChild.data
+            stringContent = node.getAttribute("Value")
             translatedStrings[stringId] = stringContent
 
 
@@ -143,7 +143,7 @@ for node in nodes:
             if stringId == langid:
                 continue
 
-            stringContent = node.firstChild.data
+            stringContent = node.getAttribute("Value")
             if stringId in translatedStrings:
                 translation = translatedStrings[stringId]
             else:
